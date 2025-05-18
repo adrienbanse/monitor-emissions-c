@@ -1,6 +1,5 @@
 from codecarbon import EmissionsTracker
 from subprocess import call
-import argparse
 import sys
 
 if len(sys.argv) < 2:
