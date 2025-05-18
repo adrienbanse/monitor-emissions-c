@@ -1,16 +1,18 @@
 from codecarbon import EmissionsTracker
 from subprocess import call
 import argparse
+import sys
 
-parser = argparse.ArgumentParser(description="Monitor the carbon emissions of a script.")
-parser.add_argument('-e', "--exec", type=str, required=True, help="Path to the executable script.")
-parser.add_argument('args', nargs=argparse.REMAINDER, help="Arguments to pass to the script.")
-args = parser.parse_args()
+if len(sys.argv) < 2:
+    print(f"Usage: python {sys.argv[0]} <command>")
+    sys.exit(1)
+
+command = sys.argv[1:]
 
 tracker = EmissionsTracker()
 
 tracker.start()
 try:
-    call([f"./{args.exec}", *args.args])
+    call(command)
 finally:
     tracker.stop()
